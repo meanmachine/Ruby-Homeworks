@@ -1,7 +1,6 @@
 class Integer
   def prime?
-    return false if self < 2
-    2.upto(pred).all? { |divisor| remainder(divisor).nonzero? }
+    (self > 1) and 2.upto(pred).all? { |divisor| remainder(divisor).nonzero? }
   end
 
   def prime_factors
@@ -39,8 +38,7 @@ class Array
 
   def combine_with(other)
     shorter_size    = size < other.size ? size : other.size
-    combined_array  = [self[0...shorter_size], other[0...shorter_size]]
-    combined_array  = combined_array.transpose
+    combined_array  = self[0...shorter_size].zip other[0...shorter_size]
     combined_array += self[shorter_size..-1]
     combined_array += other[shorter_size..-1]
     combined_array.flatten
